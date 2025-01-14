@@ -1,17 +1,17 @@
 const express = require('express');
 const path = require('path');
-// const cors = require('cors');
+const cors = require('cors');
 const app = express();
 require('./data/cleanups');
 require('./data/autoUpdates');
 
 const dataControl = require('./control/controlData');
 
-// app.use(cors({
-//   origin: 'http://localhost:5173', // Change this to your frontend's URL if different
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   credentials: true,
-// }));
+app.use(cors({
+  origin: 'http://localhost:5173', // Change this to your frontend's URL if different
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
 
 // Middleware to serve static files from the React `dist` folder
 app.use(express.json());

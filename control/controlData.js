@@ -24,23 +24,50 @@ exports.createUser = async (req, res) => {
       console.log('database error: ',err.message);
     }
 };
+
 exports.postRide = async (req, res) => {
-    // console.log(req.body);
-    const {departure,destination,seats,price,date,time,vehicleType,vehicleDetails,instantBooking,distance , email} = req.body;
-    const expTime = distance / 70.0;
-    const hours = int(expTime);
-    const minutes = int((expTime * 60) % 60);
-    const duration = `${hours}:${minutes}`;
-    try{
-      await db.execute('insert into ride(departure,destination,seats,price,date,time,vehicleType,vehicleDetails,instantBooking,distance,email,avail_seat,duration,endTime) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[departure,destination,seats,price,date,time,vehicleType,vehicleDetails,instantBooking,distance , email , seats , duration , addtime(time , duration)]);
-  
-      // console.log('Form submitted with data:', departure,destination,seats,price,date,time,vehicleType,vehicleDetails,instantBooking,distance,seats);
-      res.status(201).send('msg received');
-    }
-    catch(err){
-      console.log('database error: ',err.message);
-    }
+  const { departure, destination, seats, price, date, time, vehicleType, vehicleDetails, instantBooking, distance, email } = req.body;
+
+  // Calculate expected time and duration
+  const expTime = distance / 70.0; // Assuming 70 km/h average speed
+  const hours = Math.floor(expTime);
+  const minutes = Math.floor((expTime * 60) % 60);
+  const duration = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+  // Calculate end time
+  const timeAdd = (startTime, duration) => {
+      const [startHours, startMinutes] = startTime.split(':').map(Number);
+      const [durationHours, durationMinutes] = duration.split(':').map(Number);
+
+      let endHours = startHours + durationHours;
+      let endMinutes = startMinutes + durationMinutes;
+
+      if (endMinutes >= 60) {
+          endHours += Math.floor(endMinutes / 60);
+          endMinutes %= 60;
+      }
+      endHours %= 24; // Handle overflow for hours
+
+      return `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+  };
+
+  const endTime = timeAdd(time, duration);
+
+  try {
+      // Insert into the database
+      await db.execute(
+          'INSERT INTO ride (departure, destination, seats, price, date, time, vehicleType, vehicleDetails, instantBooking, distance, email, avail_seat, duration, endTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [departure, destination, seats, price, date, time, vehicleType, vehicleDetails, instantBooking, distance, email, seats, duration, endTime]
+      );
+
+      res.status(201).send('Ride posted successfully');
+  } catch (err) {
+      console.error('Database error:', err.message);
+      res.status(500).send('An error occurred while posting the ride');
+  }
 };
+
+
 
 exports.postBooking = async (req, res) => {
     // console.log(req.body);
@@ -291,12 +318,15 @@ exports.getUserData = async (req, res) => {
 exports.getEnergyData = async (req, res) => {
   const { email } = req.query;
   if (!email) {
-    return res.status(201).json([{energy : 0}]);
+    return res.status(400).send('Parameter is required');
   }
 
   const query = 'SELECT fuel_saved as energy from energy_con where email=?';
   try {
     const [results] = await db.execute(query ,[email]);
+    if(results.length == 0){
+      return res.json([{energy : 0}]);
+    }
     res.json(results);
   } catch (err) {
     console.error('Error fetching data:', err);
@@ -305,13 +335,17 @@ exports.getEnergyData = async (req, res) => {
 }
 exports.getCo2Data = async (req, res) => {
   const { email } = req.query;
+
   if (!email) {
-    return res.status(201).json([{reduced : 0}]);
+    return res.status(400).send('Parameter is required');
   }
 
   const query = 'SELECT reduced from co2 where email=?';
   try {
     const [results] = await db.execute(query ,[email]);
+    if(results.length == 0){
+      return res.json([{reduced : 0}]);
+    }
     res.json(results);
   } catch (err) {
     console.error('Error fetching data:', err);

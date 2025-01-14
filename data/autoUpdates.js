@@ -2,12 +2,13 @@ const cron = require('node-cron');
 const db = require('./initialize');
 
 
-cron.schedule('10 10 * * *', async () => {
+cron.schedule('* * * * *', async () => {
     try {
         const [rides] = await db.query(`
             select rid , distance , email , seats , avail_seat FROM ride
             WHERE date = curdate() and time < curtime() and status='sessioned';
         `);
+        // date = curdate()
         const [result] = await db.query(`
             update ride set status='completed'
             WHERE date = curdate() and time < curtime() and status='sessioned';
@@ -50,6 +51,6 @@ cron.schedule('10 10 * * *', async () => {
         await Promise.all(updatePromises);
 
     } catch (error) {
-        console.error('Error deleting old bookings:', error);
+        console.error('Error deleting :', error);
     }
 });
