@@ -103,7 +103,10 @@ exports.getRide = async (req, res) => {
   }
   
   // const query = 'SELECT name,email,user_id from user';
-  const query = 'SELECT r.rid as id , r.departure as departure, r.destination as `to`,r.avail_seat as seats , r.price , r.time as departureTime , r.instantBooking as isInstant,r.date,r.vehicleDetails as vehicle,r.email,r.duration,r.endTime, u.name , u.gender FROM ride r inner join user u on u.email = r.email where r.departure = ? and r.destination = ? and r.date = ?';
+  const query = 'SELECT r.rid as id , r.departure as departure, r.destination as `to`,r.avail_seat as seats , r.price , r.time as departureTime , r.instantBooking as isInstant,r.date,r.vehicleDetails as vehicle,r.email,r.duration,r.endTime, u.name , u.gender FROM ride r inner join user u on u.email = r.email where r.departure = ? and r.destination = ? and r.date = ? and r.status="sessioned"';
+
+  //and (r.date != curdate() OR r.time > curtime()) 
+
   try {
     const [results] = await db.execute(query ,[from ,to,date]);
     // console.log('Results:', results);
@@ -231,7 +234,7 @@ exports.getFutureRides = async (req, res) => {
   const query = `
   SELECT 
     r.rid AS id,
-    r.date, 
+    CONVERT_TZ(r.date, '+00:00', @@session.time_zone) AS date, 
     r.departure, 
     r.destination AS \`to\`, 
     r.avail_seat AS seats, 
@@ -252,14 +255,17 @@ exports.getFutureRides = async (req, res) => {
   LEFT JOIN 
     booking b 
     ON r.rid = b.rid
-    and b.status='accepted'
+    AND b.p_email != r.email
+    AND b.status = 'accepted'
   WHERE 
     r.email = ? OR b.p_email = ? 
+  GROUP BY 
+    r.rid
 `;
 
   try {
     const [results] = await db.execute(query ,[email,email]);
-    // console.log('Results:', results);
+    console.log('Results:', results);
     res.json(results);  // Send the fetched data as JSON response
   } catch (err) {
     console.error('Error fetching data:', err);

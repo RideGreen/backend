@@ -2,16 +2,17 @@ const cron = require('node-cron');
 const db = require('./initialize');
 
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('20 * * * *', async () => {
     try {
         const [rides] = await db.query(`
             select rid , distance , email , seats , avail_seat FROM ride
-            WHERE date = curdate() and time < curtime() and status='sessioned';
+            WHERE status='sessioned' and ((date = curdate() and time < curtime()) or date < curdate());
         `);
         // date = curdate()
+        //WHERE date = curdate() and time < curtime() and status='sessioned';
         const [result] = await db.query(`
             update ride set status='completed'
-            WHERE date = curdate() and time < curtime() and status='sessioned';
+            WHERE status='sessioned' and ((date = curdate() and time < curtime()) or date < curdate());
         `);
         console.log(`updated ${result.affectedRows} old rides.`);
         
