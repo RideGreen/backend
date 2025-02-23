@@ -27,11 +27,11 @@ app.get('/api/energy' , dataControl.getEnergyData);
 app.get('/api/co2' , dataControl.getCo2Data);
 
 
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Catch-all route to serve `index.html` for any unmatched routes
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../','frontend','dist','index.html'));
+  res.sendFile(path.resolve(__dirname,'frontend','dist','index.html'));
 });
 
 
