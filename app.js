@@ -8,7 +8,7 @@ require('./data/autoUpdates');
 const dataControl = require('./control/controlData');
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Change this to your frontend's URL if different
+  origin: ['http://localhost:5173','https://ridegreen.onrender.com'],// Change this to your frontend's URL if different
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
