@@ -16,7 +16,7 @@ import book from '../assets/utils/book.svg';
 import '../passenger/ride.css';
 
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = 'https://ridegreen.onrender.com';
 
 const handleProfileClick = (email , nav) => {
   console.log(email , nav);
