@@ -1,7 +1,6 @@
 import { auth } from '../Authentication/firebase';
 import React, { useState, useEffect } from 'react';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = 'https://ridegreen.onrender.com';
 const CO2 = () => {
     const [co2Reduced, setCo2Reduced] = useState(0);
 

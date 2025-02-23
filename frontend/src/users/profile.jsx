@@ -12,7 +12,7 @@ import EnergySaved from "./energy";
 const Profile = () => {
   const email = auth.currentUser.email;
   const [user, setUser] = useState(null); // Store user data here
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+  const BACKEND_URL = 'https://ridegreen.onrender.com';
   useEffect(() => {
     const fetchData = async () => {
       try {

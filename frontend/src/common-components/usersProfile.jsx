@@ -2,7 +2,7 @@ import React,{useState , useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = 'https://ridegreen.onrender.com';
 
 const UserProfile = () => {
     const [user , setUser] = useState([]);

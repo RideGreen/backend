@@ -5,7 +5,7 @@ import { auth } from "../Authentication/firebase";
 import Loader from "../homepage/loading";
 import Card from "./card";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = 'https://ridegreen.onrender.com';
 const NotificationCard = ({ title, message, nid , fetchReq}) => {
 
   const handleRequest = async (e) => {
