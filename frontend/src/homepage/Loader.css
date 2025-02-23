@@ -1,0 +1,18 @@
+
+  .wheel {
+    fill: rgb(51, 51, 51);
+    font-size: 100px;
+    width: 100px;
+    height: 100vh;
+    border-radius: 6em;
+    text-align: center;
+    animation: rolling 1s linear infinite;
+  }
+  
+  @keyframes rolling {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  
