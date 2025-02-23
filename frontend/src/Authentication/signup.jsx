@@ -3,7 +3,10 @@ import { Link , useNavigate} from 'react-router-dom';
 
 import { auth, db , googleProvider} from "./firebase.js"; 
 import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 const Signup = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -21,7 +24,7 @@ const Signup = () => {
       const user = result.user;
   
       try {
-        const response = await fetch("http://localhost:5000/api/user", {
+        const response = await fetch(`${BACKEND_URL}/api/user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -67,7 +70,7 @@ const Signup = () => {
       await updateProfile(user, { displayName: name });
 
       try{
-        const response = await fetch("http://localhost:5000/api/user", {
+        const response = await fetch(`${BACKEND_URL}/api/user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

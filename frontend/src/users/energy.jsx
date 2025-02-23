@@ -4,14 +4,14 @@ import {auth} from '../Authentication/firebase';
 
 
 
-
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 const EnergySaved = () => {
     const [energySaved, setEnergySaved] = useState(0); // Example data
 
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const url = new URL(`http://localhost:5000/api/energy`);
+                const url = new URL(`${BACKEND_URL}/api/energy`);
                 url.searchParams.append('email' , auth.currentUser.email);
                 const res = await fetch(url);
 

@@ -6,13 +6,15 @@ const handleCardClick = (ride , navigate) => {
     navigate(`/ride/details/${1}/${ride.id}`);
 };
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 const FutureRides = () => {
   const [rides , setRides] = useState([]);
   const email = auth.currentUser.email;
   useEffect(() => {
       const fetchRides = async () => {
         try {
-          const url = new URL(`http://localhost:5000/api/get-future-rides`);
+          const url = new URL(`${BACKEND_URL}/api/get-future-rides`);
           url.searchParams.append("email", email);
           const response = await fetch(url);
   

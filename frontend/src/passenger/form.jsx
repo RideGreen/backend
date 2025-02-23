@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 function PassengerForm() {
   const [formData, setFormData] = useState({
     name: "",

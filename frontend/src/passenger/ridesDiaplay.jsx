@@ -11,7 +11,7 @@ import Loader from '../homepage/loading';
 
 
 
-
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 const RideList = () => {
 
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const RideList = () => {
     const fetchData = async () => {
       try {
         // Construct the URL with query parameters
-        const url = new URL(`http://localhost:5000/api/get-rides`);
+        const url = new URL(`${BACKEND_URL}/api/get-rides`);
         url.searchParams.append("to", to);
         url.searchParams.append("from", from);
         url.searchParams.append("date", date);

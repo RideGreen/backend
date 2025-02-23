@@ -1,14 +1,14 @@
 import { auth } from '../Authentication/firebase';
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 const CO2 = () => {
     const [co2Reduced, setCo2Reduced] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const url = new URL(`http://localhost:5000/api/co2`);
+                const url = new URL(`${BACKEND_URL}/api/co2`);
                 url.searchParams.append('email', auth.currentUser.email);
                 const res = await fetch(url);
 
@@ -37,13 +37,6 @@ const CO2 = () => {
         </div>
     );
 
-    return (
-        <div className="flex flex-col items-center space-y-6">
-            <h2 className="text-2xl font-semibold">Energy Saved</h2>
-            <FuelDrop energySaved={energySaved} />
-            <p className="text-gray-600 mt-2">Energy saved so far</p>
-        </div>
-    );
 };
 
 export default CO2;

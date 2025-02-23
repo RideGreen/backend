@@ -12,11 +12,11 @@ import EnergySaved from "./energy";
 const Profile = () => {
   const email = auth.currentUser.email;
   const [user, setUser] = useState(null); // Store user data here
-
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const url = new URL(`http://localhost:5000/api/user-data`);
+          const url = new URL(`${BACKEND_URL}/api/user-data`);
           url.searchParams.append('email', email);
           const res = await fetch(url);
 

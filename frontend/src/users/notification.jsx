@@ -5,12 +5,13 @@ import { auth } from "../Authentication/firebase";
 import Loader from "../homepage/loading";
 import Card from "./card";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 const NotificationCard = ({ title, message, nid , fetchReq}) => {
 
   const handleRequest = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:5000/api/deleteNotification", {
+      await fetch(`${BACKEND_URL}/api/deleteNotification`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +43,7 @@ const NotificationList = () => {
         throw new Error("User is not logged in or email is unavailable.");
       }
 
-      const url = new URL(`http://localhost:5000/api/get-notification`);
+      const url = new URL(`${BACKEND_URL}/api/get-notification`);
       url.searchParams.append("email", auth.currentUser.email);
 
       const response = await fetch(url);

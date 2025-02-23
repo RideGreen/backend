@@ -15,6 +15,9 @@ import book from '../assets/utils/book.svg';
 
 import '../passenger/ride.css';
 
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 const handleProfileClick = (email , nav) => {
   console.log(email , nav);
   nav('/user-profile' , { state: { email } });
@@ -29,7 +32,7 @@ async function handleBooking(ride,nav,seats){
     }
     let bid=1;
         try {
-          const response = await fetch("http://localhost:5000/api/booking", {
+          const response = await fetch(`${BACKEND_URL}/api/booking`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -79,14 +82,14 @@ async function handleBooking(ride,nav,seats){
         Safe travels!`
         const passenger = {email : p_email , title : passengerTitle , msg : passengerMsg };
 
-        fetch("http://localhost:5000/api/notification", {
+        fetch(`${BACKEND_URL}/api/notification`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(rider)
         });
-        fetch("http://localhost:5000/api/notification", {
+        fetch(`${BACKEND_URL}/api/notification`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -108,7 +111,7 @@ const RideDetail = () => {
         const fetchRide = async () => {
           try {
             // Construct the URL with query parameters
-            const url = new URL(`http://localhost:5000/api/get-single-ride`);
+            const url = new URL(`${BACKEND_URL}/api/get-single-ride`);
             url.searchParams.append("rid", rid);
             const response = await fetch(url);
             
@@ -125,7 +128,7 @@ const RideDetail = () => {
         const fetchPassenger = async () => {
           try {
             // Construct the URL with query parameters
-            const url = new URL(`http://localhost:5000/api/get-passengers-ofSingle-ride`);
+            const url = new URL(`${BACKEND_URL}/api/get-passengers-ofSingle-ride`);
             url.searchParams.append("rid", rid);
             const response = await fetch(url);
             

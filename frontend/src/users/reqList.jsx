@@ -5,6 +5,8 @@ import { auth } from "../Authentication/firebase";
 import Loader from "../homepage/loading";
 import Card from "./card";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 const RequestCard = ({ title, message, p_email, bid, reqId, rid, fetchReq }) => {
 
   const handleRequest = async (e) => {
@@ -20,7 +22,7 @@ const RequestCard = ({ title, message, p_email, bid, reqId, rid, fetchReq }) => 
     const passenger = { email: p_email, title: passengerTitle, msg: passengerMsg };
 
     try {
-      await fetch("http://localhost:5000/api/notification", {
+      await fetch(`${BACKEND_URL}/api/notification`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +30,7 @@ const RequestCard = ({ title, message, p_email, bid, reqId, rid, fetchReq }) => 
         body: JSON.stringify(passenger),
       });
 
-      await fetch("http://localhost:5000/api/handleRequest", {
+      await fetch(`${BACKEND_URL}/api/handleRequest`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +80,7 @@ const RequestList = () => {
         throw new Error("User is not logged in or email is unavailable.");
       }
 
-      const url = new URL(`http://localhost:5000/api/get-ride-req`);
+      const url = new URL(`${BACKEND_URL}/api/get-ride-req`);
       url.searchParams.append("email", auth.currentUser.email);
 
       const response = await fetch(url);

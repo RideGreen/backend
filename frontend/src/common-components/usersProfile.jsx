@@ -1,5 +1,9 @@
 import React,{useState , useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
+
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
 const UserProfile = () => {
     const [user , setUser] = useState([]);
     const loc = useLocation();
@@ -9,7 +13,7 @@ const UserProfile = () => {
     useEffect(()=>{
         const fetchUser = async () => {
         try{
-            const url = new URL(`http://localhost:5000/api/user-data`);
+            const url = new URL(`${BACKEND_URL}/api/user-data`);
             url.searchParams.append("email", email);
             const response = await fetch(url);
 

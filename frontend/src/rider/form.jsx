@@ -47,7 +47,7 @@ const Form = () => {
 
   const today = new Date().toISOString().split("T")[0];
 
-
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -178,7 +178,7 @@ const Form = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/offer-ride", {
+      const response = await fetch(`${BACKEND_URL}/api/offer-ride`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
