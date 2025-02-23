@@ -48,6 +48,7 @@ const Form = () => {
   const today = new Date().toISOString().split("T")[0];
 
   const BACKEND_URL = 'https://ridegreen.onrender.com';
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

@@ -84,6 +84,7 @@ const Signup = () => {
       } catch (error) {
         console.error("Error:", error);
         alert("An error occurred while sending the message.");
+        return;
       }
 
       alert("Account created successfully!");
