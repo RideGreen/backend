@@ -220,7 +220,7 @@ const Form = () => {
     const { lat: depLat, lon: depLon } = departureCoords;
     const { lat: destLat, lon: destLon } = destinationCoords;
 
-    const url = `http://router.project-osrm.org/route/v1/driving/${depLon},${depLat};${destLon},${destLat}?overview=false`;
+    const url = `https://router.project-osrm.org/route/v1/driving/${depLon},${depLat};${destLon},${destLat}?overview=false`;
     const response = await fetch(url);
     const data = await response.json();
 
