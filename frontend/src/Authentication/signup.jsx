@@ -5,7 +5,7 @@ import { auth, db , googleProvider} from "./firebase.js";
 import { createUserWithEmailAndPassword, updateProfile , signInWithPopup } from "firebase/auth";
 
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = 'https://ridegreen.onrender.com';
 
 const Signup = () => {
   const navigate = useNavigate();
