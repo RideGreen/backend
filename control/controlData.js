@@ -132,14 +132,14 @@ exports.postNotification = async (req , res) => {
 
 exports.getNotification = async (req, res) => {
   const  email = req.query.email;
-  // console.log(email);
+  console.log(email);
   if (!email) {
     return res.status(400).send('Parameter is required');
   }
   const query = 'SELECT nid as id , title , msg from notification where email=? order by arrivedAt desc';
   try {
     const [results] = await db.execute(query ,[email]);
-    // console.log('Notifications:', results);
+    console.log('Notifications:', results);
     res.json(results);  // Send the fetched data as JSON response
   } catch (err) {
     console.error('Error fetching data:', err);
@@ -306,7 +306,7 @@ exports.getSingleRidePassengers = async (req, res) => {
 }
 exports.getUserData = async (req, res) => {
   const { email } = req.query;
-  // console.log('email: ',email);
+  console.log('email: ',email);
   if (!email) {
     return res.status(400).send('Parameter is required');
   }
@@ -314,7 +314,7 @@ exports.getUserData = async (req, res) => {
   const query = 'SELECT user_id as id , name , email , gender , age ,phone from user where email=?';
   try {
     const [results] = await db.execute(query ,[email]);
-    // console.log('Results:', results);
+    console.log('Results:', results);
     res.json(results);
   } catch (err) {
     console.error('Error fetching data:', err);

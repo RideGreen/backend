@@ -16,11 +16,14 @@ require('dotenv').config();
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-    host: 'switchback.proxy.rlwy.net',  // Use the public Railway host
+    //host: 'switchback.proxy.rlwy.net', 
+    host: 'switchyard.proxy.rlwy.net',
     user: 'root',
-    password: 'gdRszbNTxOGUDDecOAePxcrYWouyteCN',
+    //password: 'gdRszbNTxOGUDDecOAePxcrYWouyteCN',
+    password:'BgUAOedvUscQsuQTSLDpVxjcBrAgOPMn',
     database: 'railway',
-    port: 35330,
+    //port: 35330,
+    port: 40394,
     ssl: {
         rejectUnauthorized: false
     }
