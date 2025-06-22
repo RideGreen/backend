@@ -1,26 +1,14 @@
-/* const mysql = require('mysql2');
-
-
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    database: 'ridegreen',
-    password: '914167@Manasa'
-});
-
-// console.log(pool , ' connection established');
-const promisePool = pool.promise();
-
-*/
 require('dotenv').config();
 const mysql = require('mysql2');
 
+const pass = process.env.Password;
+console.log(pass);
 const pool = mysql.createPool({
     //host: 'switchback.proxy.rlwy.net', 
     host: 'switchyard.proxy.rlwy.net',
     user: 'root',
     //password: 'gdRszbNTxOGUDDecOAePxcrYWouyteCN',
-    password:'BgUAOedvUscQsuQTSLDpVxjcBrAgOPMn',
+    password:pass,
     database: 'railway',
     //port: 35330,
     port: 40394,
