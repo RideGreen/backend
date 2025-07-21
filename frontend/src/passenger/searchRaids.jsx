@@ -18,7 +18,6 @@ export default function RideForm() {
     "Mangalore",
     "Hubli",
     "Belgaum",
-    "Shimoga",
     "Davanagere",
     "Gulbarga",
     "Bellary",

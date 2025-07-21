@@ -4,12 +4,12 @@ const mysql = require('mysql2');
 const pass = process.env.Password;
 console.log(pass);
 const pool = mysql.createPool({
-    host: 'switchyard.proxy.rlwy.net',
+    host: 'crossover.proxy.rlwy.net',
     user: 'root',
     password:pass,
     database: 'railway',
     //port: 35330,
-    port: 40394,
+    port: 402911,
     ssl: {
         rejectUnauthorized: false
     }
