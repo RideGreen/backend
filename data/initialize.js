@@ -1,14 +1,12 @@
 require('dotenv').config();
 const mysql = require('mysql2');
 
-const pass = process.env.Password;
-console.log(pass);
+const pass = process.env.PASSWORD;
 const pool = mysql.createPool({
     host: 'crossover.proxy.rlwy.net',
     user: 'root',
-    password:pass,
+    password: 'UBWXsfhjxGpyDndtjQLZrxtKlupFXZsO',
     database: 'railway',
-    //port: 35330,
     port: 42911,
     ssl: {
         rejectUnauthorized: false
