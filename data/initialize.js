@@ -9,7 +9,7 @@ const pool = mysql.createPool({
     password:pass,
     database: 'railway',
     //port: 35330,
-    port: 402911,
+    port: 42911,
     ssl: {
         rejectUnauthorized: false
     }
